@@ -1,0 +1,25 @@
+{
+  "source_text": "TCP (Transmission Control Protocol) is a connection-oriented transport layer protocol. Before any data is sent, TCP performs a three-way handshake (SYN, SYN-ACK, ACK) to establish a reliable connection between sender and receiver. TCP guarantees that data arrives in order and without loss - if a packet is dropped, TCP detects this and retransmits it automatically. This reliability comes at the cost of extra overhead and higher latency compared to simpler protocols. TCP is used for applications where correctness matters more than speed, such as file transfers, web browsing, and email.\n\nUDP (User Datagram Protocol) is a connectionless transport layer protocol. Unlike TCP, UDP does not establish a connection before sending data, and it does not guarantee delivery, ordering, or error correction. Each UDP packet, called a datagram, is sent independently. Because UDP skips the overhead of connection setup and retransmission, it is much faster and has lower latency than TCP. UDP is commonly used for applications that can tolerate some data loss in exchange for speed, such as online gaming, live video streaming, and voice calls.\n\nThe main tradeoff between TCP and UDP is reliability versus speed. TCP is the right choice when every byte of data must arrive correctly and in order. UDP is the right choice when low latency matters more than perfect delivery, and where losing a small amount of data is an acceptable tradeoff for real-time performance.",
+  "questions": [
+    {
+      "question": "What is the main difference between TCP and UDP?",
+      "reference": "TCP is connection-oriented and guarantees reliable, ordered delivery of data, while UDP is connectionless and does not guarantee delivery or ordering, making UDP faster but less reliable."
+    },
+    {
+      "question": "What is the three-way handshake used for?",
+      "reference": "The three-way handshake (SYN, SYN-ACK, ACK) is used by TCP to establish a reliable connection between sender and receiver before any data is sent."
+    },
+    {
+      "question": "Why would someone choose UDP over TCP for online gaming?",
+      "reference": "UDP is chosen for online gaming because it has lower latency than TCP, since it skips connection setup and retransmission overhead, and games can tolerate some data loss in exchange for speed."
+    },
+    {
+      "question": "Does UDP retransmit lost packets?",
+      "reference": "No, UDP does not retransmit lost packets. It does not guarantee delivery, ordering, or error correction, unlike TCP which automatically detects and retransmits dropped packets."
+    },
+    {
+      "question": "What is a UDP datagram?",
+      "reference": "A UDP datagram is an individual packet sent independently by UDP, without establishing a connection first, unlike TCP which sends data as part of an established connection."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+ragas==0.3.9
+pytest==9.1.1
+sentence-transformers
+langchain-openai

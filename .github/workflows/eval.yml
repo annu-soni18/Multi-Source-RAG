@@ -1,0 +1,47 @@
+name: RAGAS Evaluation
+
+# Runs automatically on every pull request into main - this is what
+# blocks a PR from merging if it makes the RAG pipeline's answers
+# measurably worse.
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install app + eval dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r eval/requirements-eval.txt
+
+      - name: Run RAGAS evaluation
+        env:
+          # These come from GitHub's repo Settings -> Secrets and
+          # variables -> Actions - never hardcoded here.
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          QDRANT_URL: ${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python eval/run_eval.py
+
+      - name: Upload eval results as a build artifact
+        # This runs even if the eval step above FAILED (e.g. score
+        # dropped below threshold) - so you can still download and
+        # inspect the scores that caused the failure.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: eval_results.json
