@@ -21,3 +21,6 @@ session.
 
 Streamlit, Qdrant Cloud, Supabase Postgres, Groq (Llama 3.1 / 3.3),
 LangGraph, RAGAS, GitHub Actions, Grafana Cloud.
+
+
+Grafana dashboard is integrated.

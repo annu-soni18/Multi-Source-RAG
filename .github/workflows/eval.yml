@@ -34,7 +34,12 @@ jobs:
           QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        run: python eval/run_eval.py
+          # Forces Python to print output immediately instead of
+          # buffering it - without this, log lines can appear
+          # out of order or seemingly "go missing" in CI's log
+          # viewer, which is exactly what happened on our first CI run.
+          PYTHONUNBUFFERED: "1"
+        run: python -m eval.run_eval
 
       - name: Upload eval results as a build artifact
         # This runs even if the eval step above FAILED (e.g. score
