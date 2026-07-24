@@ -209,6 +209,7 @@ def run_evaluation() -> dict:
         metrics=metrics,
         llm=ragas_llm,
         embeddings=ragas_embeddings,
+        show_progress=False,
     )
 
     # Average each metric's per-question scores into one overall
