@@ -25,13 +25,19 @@ jobs:
           pip install -r requirements.txt
           pip install -r eval/requirements-eval.txt
 
-      - - name: Run RAGAS evaluation
+      - name: Run RAGAS evaluation
         env:
+          # These come from GitHub's repo Settings -> Secrets and
+          # variables -> Actions - never hardcoded here.
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           QDRANT_URL: ${{ secrets.QDRANT_URL }}
           QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          # Forces Python to print output immediately instead of
+          # buffering it - without this, log lines can appear
+          # out of order or seemingly "go missing" in CI's log
+          # viewer, which is exactly what happened on our first CI run.
           PYTHONUNBUFFERED: "1"
         run: python -m eval.run_eval
 
