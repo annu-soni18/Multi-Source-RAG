@@ -44,7 +44,7 @@ from ragas.metrics import (
 from langchain_openai import ChatOpenAI
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
-from config.settings import GROQ_API_KEY, GROQ_GENERATION_MODEL
+from config.settings import GROQ_API_KEY, GROQ_REWRITE_MODEL
 from ingestion.text_loader import load_text
 from processing.chunking import chunk_document
 from processing.embeddings import embed_chunks
@@ -114,7 +114,7 @@ def run_evaluation() -> dict:
     dataset = build_ragas_dataset(testset_data["questions"])
 
     chat_model = ChatOpenAI(
-        model=GROQ_GENERATION_MODEL,
+        model=GROQ_REWRITE_MODEL,
         api_key=GROQ_API_KEY,
         base_url="https://api.groq.com/openai/v1",
     )
